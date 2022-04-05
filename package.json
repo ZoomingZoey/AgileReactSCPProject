@@ -1,0 +1,23 @@
+{
+  "name": "agilereactscpproject",
+  "version": "1.0.0",
+  "description": "A SCP themed web app built using React.js, MongoDB and Express.js using the agile scrum software development methodology.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachcoley/AgileReactSCPProject.git"
+  },
+  "keywords": [],
+  "author": "Zach Coley, Alice Watson-Howcroft, Kim Parker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachcoley/AgileReactSCPProject/issues"
+  },
+  "homepage": "https://github.com/zachcoley/AgileReactSCPProject#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
