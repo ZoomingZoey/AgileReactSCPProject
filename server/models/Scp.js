@@ -24,7 +24,7 @@ const scpSchema = mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: v => ['safe', 'euclid', 'keter', 'thaumiel', 'apollyon'].includes(v.toLowerCase()),
+      validator: v => ['Safe', 'Euclid', 'Keter', 'Thaumiel', 'Apollyon'].includes(v),
       message: props => `${props.value} is not a valid object class`,
     },
   },
@@ -36,10 +36,7 @@ const scpSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: imageSchema,
-    required: false
-  }
+  image: [imageSchema]
 });
 
 module.exports = mongoose.model('Scp', scpSchema);
