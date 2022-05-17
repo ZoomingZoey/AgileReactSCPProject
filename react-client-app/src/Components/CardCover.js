@@ -10,7 +10,7 @@ function CardCover(props) {
             <img
               className="cards__item__img"
               alt="Travel"
-              src={process.env.PUBLIC_URL + props.src}
+              src={props.src}
             />
           </figure>
           <div className="cards__item__info">
