@@ -94,11 +94,23 @@
   }
   
   .cards__item__text {
-    color: #252e48;
+    color: #000000;
     font-size: 18px;
     line-height: 24px;
   }
   
+  .cards__item__heading {
+    color: #000000;
+    font-size: 30px;
+    line-height: 24px;
+  }
+
+  .cards__item__headingtwo h2 {
+    color: #000000;
+    font-size: 30px;
+    line-height: 24px;
+  }
+
   @media only screen and (min-width: 1200px) {
     .content__blog__container {
       width: 84%;

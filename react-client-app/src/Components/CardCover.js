@@ -9,12 +9,15 @@ function CardCover(props) {
           <figure className="cards__item__pic-wrap" data-category={props.label}>
             <img
               className="cards__item__img"
-              alt="Travel"
+              alt="SCP"
               src={props.src}
             />
           </figure>
           <div className="cards__item__info">
+            <h2 className="cards_item_heading">{props.heading}</h2>
             <h5 className="cards__item__text">{props.text}</h5>
+            <h2 className="cards_item_headingtwo">{props.headingtwo}</h2>
+            <h5 className="cards__item__text">{props.texttwo}</h5>
           </div>
         </Link>
       </li>

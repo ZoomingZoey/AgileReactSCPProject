@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "item": "SCP-011",
+    "name": "Sentient Civil War Memorial Statue",
+    "object_class": "Safe",
+    "containment_procedures": "Item SCP-011 and the area surrounding it are to be cleaned once every day. For safety purposes, cleaning should start at least 30 minutes after sundown. Cleaning should always be performed by at least two (2) personnel, who are also advised to note anything unusual about the item or the debris cleaned up. In a situation where the item cannot be cleaned for more than two (2) days, local residents must be contacted and instructed not to approach the item.",
+    "description": "SCP-011 is a Civil War memorial statue located in Woodstock, Vermont. The statue is the image of a young male soldier holding a musket at his side, and is carved out of granite quarried within the area. Occasionally, SCP-011 has been observed lifting its musket to the sky to fire at birds which attempt to land or defecate on it. Reports detail that its movements produce soft grinding sounds but do not cause it any structural failure. Oddly, the gunfire is very similar to that of a standard firearm, despite observations that the item only loads granite bullets and granite powder into the musket (which is also unharmed by the firing). In spite of its efforts, some fecal matter does manage to strike SCP-011, and it has reportedly become distressed when it has had a large amount of feces on it, on some rare occasions even firing at humans.",
+    "image": [
+      {
+        "url": "scp-011.jpg",
+        "caption": "SCP-011"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "item": "SCP-009",
+    "name": "Red Ice",
+    "object_class": "Euclid",
+    "containment_procedures": "SCP-009, also known as Red Ice, is a Euclid-class substance with the same molecular make up as water but reversed physical properties and deep red coloration, discovered in Alaska, USA. SCP-009 is capable of converting any water it came into contact with into more SCP-009, and so will kill any human that touches it as the water in their body is converted and becomes solid crystal.",
+    "description": "SCP-009 was the designation given by the SCP Foundation to an anomalous substance with the same molecular makeup of oxygen and hydrogen atoms as water, but with reversed physical properties in regards to temperature extremes. At temperatures between -100°C and 0°C, SCP-009 assumes its liquid phase, while at temperatures below -100°C it is gaseous and above 0°C it is solid. The substance is colorless like mundane water when in small amounts, but larger concentrations takes on a distinct deep red hue. This coloration is maintained in the gaseous state when the substance is put under high pressure. SCP-009 has the ability to convert any mundane water it comes into contact with into more SCP-009, including water in aqueous solutions. This will occur no matter what phase the substance is in.",
+    "image": [
+      {
+        "url": "scp-009.jpg",
+        "caption": "SCP-009 prior to recovery"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "item": "SCP-019",
+    "name": "The Monster Pot",
+    "object_class": "Keter",
+    "containment_procedures": "SCP-019 is to be kept on a wide grate in a 3m x 3m x 4m renforced concrete room, installed with an incinerator. Room is to be kept at zero (0) degrees Celsius when incinerator is not activated. An observation chamber separated by a plate glass window is to be used for constant observation of SCP-019, and if/when specimans of SCP-019-2 are observed, then incinerator is to be activated. In the event of an outbreak of SCP-019-2, ordinary firearms and successful in terminating individual specimens, although in the case of a swarm-level outbreak, flamethrowers may be more effective. SCP-019 should be kept in a vertical position at all times.",
+    "description": "Periodically, entities emerge from SCP-019. Collectively, these are known as SCP-019-2. The entities vary in many aspects, but tend to be small, vaguely humanoid (though they may have animaloid features), and extremely hositile. They often choose to attack with teeth or claws. Although fairly delicate (also, surprisingly, flammable), they are reasonably strong and pose a considerable threat in large numbers.",
+    "image": [
+      {
+        "url": "scp-019.jpg",
+        "caption": "SCP-019"
+      },
+      {
+        "url": "scp-019-2.jpg",
+        "caption": "SCP-019-2 specimen"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "item": "SCP-018",
+    "name": "Super Ball",
+    "object_class": "Thaumiel",
+    "containment_procedures": "SCP-018 is to be contained in its specialty metal restraint inside of a 1 m by 1 m by 1 m sealed box lined with heavy synthetic padding. The sealed box is then submerged in the center of the 10 m by 10 m by 10 m polyethylene holding tank. If SCP-018 is to break free from the holding box, the polyethylene-based 'goo' will slow down kinetic activity enough for proper retrieval by containment personnel. Personnel entering SCP-018's holding chamber are to wear specialized plating (found inside of SCP-018 Observation), and a breathing apparatus before being lowered into the polyethylene tank. If SCP-018 is loose outside of the polyethylene tank, personnel are advised to secure themselves in a separate room and close doorways or hatches to isolate SCP-018 until containment teams arrive.",
+    "description": "SCP-018 has the appearance of a Super Ball made by the Wham-O company in 1969. It is six (6) centimeters in diameter and coloured red. Found when the ██████████ company was hired to clean out a warehouse that had Wham-O merchandise in it, SCP-018 was noted to be able to bounce with extreme height. At first thought to be a pleasant child's toy, SCP-018 was able to bounce with over two hundred percent (200%) efficiency (that is, if dropped one (1) meter, it would bounce two (2), then four (4), then eight (8), then sixteen (16)). The ball soon became a dangerous projectile, reaching speeds estimated at over 100 km/h and damaging property and injuring five (5) in the city of █████████████. It came to a rest after several days in the nearby lake of ████████, and was retrieved by SCP personnel. Due to the speed of the object, and the total surprise by its victims, no cover-up story was required or initiated.",
+    "image": null
+  }
+]

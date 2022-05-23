@@ -41,7 +41,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link
-              to="/Home"
+              to="/SCP_Safe"
               className="nav-links"
               onClick={closeMobileMenu}
             >
@@ -50,7 +50,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Safe"
+              to="/SCP_Euclid"
               className="nav-links"
               onClick={closeMobileMenu}
             >
