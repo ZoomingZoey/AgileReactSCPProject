@@ -6,7 +6,6 @@ import './MainPage.css'
 function Mainpage() {
   return (
     <div className='hero-container'>
-      {/* <video src='/videos/adventure.mp4'  autoPlay loop muted  /> */}
       <h1>SCP FOUNDATION DATABASE</h1>
       <p></p>
       <div className='hero-btns'>

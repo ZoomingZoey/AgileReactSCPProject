@@ -33,7 +33,7 @@ function Cards() {
               src='images/Thaumiel_SCP.jpg'
               text='Keter scps are very difficult to contain or havent yet been contained'
               label='Thaumiel'
-              path='/SCP_Keter'
+              path='/SCP_Thaumiel'
             />
           </ul>
         </div>

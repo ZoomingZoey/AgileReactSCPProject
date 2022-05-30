@@ -3,11 +3,23 @@
     background: #fff;
   }
   
-  h1 {
+  h4 {
     text-align: center;
-    color: #000000;
+    font-size: 30px;
+    color: #ffffff;
+    border-style: solid;
+    border-color: grey;
+    background-color: grey;
+    text-shadow: 2px 2px 5px black;
+    
   }
   
+  h2 {
+    text-align: left;
+    color: #000000;
+    padding-bottom: 10px;
+  }
+
   .cards__container {
     display: flex;
     flex-flow: column;
@@ -64,7 +76,7 @@
     margin-left: 0px;
     padding: 6px 8px;
     max-width: calc((100%) - 60px);
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
     background-color: #031a2b;
@@ -100,13 +112,18 @@
     line-height: 24px;
   }
   
-  .cards__item__heading {
+  .cards__item__scp_title {
     color: #000000;
-    font-size: 30px;
+    font-size: 40px;
     line-height: 24px;
+    text-align: center;
+    border-style: solid;
+    border-color: grey;
+    background-color: grey;
+  
   }
 
-  .cards__item__headingtwo h2 {
+  .cards__item__scp-headingtwo h2 {
     color: #000000;
     font-size: 30px;
     line-height: 24px;

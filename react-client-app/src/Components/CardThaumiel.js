@@ -1,7 +1,7 @@
 import React from "react";
-import CardCoverSCP from "./CardCoverSCP";
 import "./SCPCards.css";
 import JSON from "./SCPMockData.json"
+import CardCoverSCP from "./CardCoverSCP";
 
 const SCP = JSON.map (
 (scp) =>
@@ -17,7 +17,7 @@ const SCP = JSON.map (
         
            
           <CardCoverSCP
-              src= {scp.image}
+              image= {scp.image}
               title= {scp.name}
               item={scp.item}
               heading="Containment Procedures"
@@ -36,7 +36,7 @@ const SCP = JSON.map (
 }
 );
 
-function CardsSafe() {
+function CardThaumiel() {
   return(
     <div>
       {SCP}
@@ -44,4 +44,4 @@ function CardsSafe() {
   )
 }
 
-export default CardsSafe;
+export default CardThaumiel;
