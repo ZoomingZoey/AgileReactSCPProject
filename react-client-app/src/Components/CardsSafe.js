@@ -14,11 +14,10 @@ const SCP = JSON.map (
       <div className="cards__container">
         <div className="cards_wrapper">
           <ul className="cards__items">
-        
-           
+                   
           <CardCoverSCP
-              src= {scp.image}
-              title= {scp.name}
+              src={scp.image}
+              title={scp.name}
               item={scp.item}
               heading="Containment Procedures"
               text= {scp.containment_procedures}
