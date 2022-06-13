@@ -1,17 +1,11 @@
-// These articles helped me with designing this API:
-// https://lo-victoria.com/build-a-rest-api-with-nodejs-routes-and-controllers
-// https://www.coreycleary.me/what-is-the-difference-between-controllers-and-services-in-node-rest-apis
-
-
 // import dependencies
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 require("dotenv").config();
 
-// import routes
-const scpRoutes = require('./routes/Scps');
-const mediaRoutes = require('./routes/Media');
+// import schemas
+const Scp = require('./models/Scp');
 
 // create an instance of express
 const app = express();
@@ -346,14 +340,51 @@ const subjects = [
   }
 ];
 
-// tell express to use the imported routes
-app.use('/api', scpRoutes);
-app.use('/api', mediaRoutes);
+/*
+async function insertScps() {
+  for (const subject of subjects) {
+    try {
+      const scp = await Scp.create({
+        item: subject.item,
+        name: subject.name,
+        object_class: subject.object_class,
+        containment_procedures: subject.containment_procedures,
+        description: subject.description,
+        image: subject.image
+      });
+      await scp.save();
+      console.log(scp);
+    } catch(e) {
+      console.log(e.message);
+    }
+  }
+}
+*/
+
+// insertScps();
+
+// route to get all scp subjects
+app.get('/api/scps', (req, res) => {
+  // ...
+});
+
+// route to get a single scp subject by its item e.g: /api/scps/002
+app.get('/api/scps/:item', (req, res) => {
+  const { item } = req.params;
+  console.log(`SCP-${item}`);
+  // ...
+});
+
+// route to get an image by its filename from the /server/images directory
+app.get('/api/images/:filename', (req, res) => {
+  const { filename } = req.params;
+  console.log(filename);
+  res.sendFile(path.resolve(__dirname, './images', filename));
+});
 
 // any unhandled routes will return the react application
 app.get('*', (req, res) => {
-  //res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
-  res.sendFile(path.resolve(__dirname, './', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
 });
 
 // tell the server to begin listening on the selected port
