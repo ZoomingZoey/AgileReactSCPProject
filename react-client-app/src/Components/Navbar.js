@@ -41,7 +41,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link
-              to="/Home"
+              to="/SCP_Safe"
               className="nav-links"
               onClick={closeMobileMenu}
             >
@@ -50,7 +50,7 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Safe"
+              to="/SCP_Euclid"
               className="nav-links"
               onClick={closeMobileMenu}
             >
@@ -59,22 +59,12 @@ function Navbar() {
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Euclid"
+              to="/SCP_Keter"
               className="nav-links"
               onClick={closeMobileMenu}
             >
               SCP Keter
             </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/SCP_Keter"
-              className="nav-links-mobile"
-              onClick={closeMobileMenu}
-            >
-           
-            </Link>
-            
           </li>
           <li className="nav-item">
             <Link

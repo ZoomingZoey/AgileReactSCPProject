@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function CardCover(props) {
+
+
+function CardCoverSCP(props) {
+
   return (
     <>
       <li className="cards__item">
@@ -11,13 +14,16 @@ function CardCover(props) {
               className="cards__item__img"
               alt="SCP"
               src={props.src}
+              url={props.url}
             />
           </figure>
           <div className="cards__item__info">
-          <h1 className="cards_item_heading">{props.title}</h1>
+          <h4 className="cards_item_scp_title">{props.title}</h4>
           <br></br>
-            <h2 className="cards_item_heading">{props.heading}</h2>
+          <br></br>
+            <h2 className="cards_item_scp_heading">{props.heading}</h2>
             <h5 className="cards__item__text">{props.text}</h5>
+            <br></br>
             <h2 className="cards_item_headingtwo">{props.headingtwo}</h2>
             <h5 className="cards__item__text">{props.texttwo}</h5>
           </div>
@@ -27,4 +33,4 @@ function CardCover(props) {
   );
 }
 
-export default CardCover;
+export default CardCoverSCP;
