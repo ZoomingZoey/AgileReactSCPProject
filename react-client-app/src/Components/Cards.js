@@ -32,8 +32,8 @@ function Cards() {
             <CardCover
               src='images/Thaumiel_SCP.jpg'
               text='Keter scps are very difficult to contain or havent yet been contained'
-              label='Keter'
-              path='/SCP_Keter'
+              label='Thaumiel'
+              path='/SCP_Thaumiel'
             />
           </ul>
         </div>
