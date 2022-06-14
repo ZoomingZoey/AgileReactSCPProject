@@ -13,8 +13,7 @@ function CardCoverSCP(props) {
             <img
               className="cards__item__img"
               alt="SCP"
-              src={props.src}
-              url={props.url}
+              src={`/api/media/images/${props.src}`}
             />
           </figure>
           <div className="cards__item__info">
@@ -24,8 +23,15 @@ function CardCoverSCP(props) {
             <h2 className="cards_item_scp_heading">{props.heading}</h2>
             <h5 className="cards__item__text">{props.text}</h5>
             <br></br>
-            <h2 className="cards_item_headingtwo">{props.headingtwo}</h2>
-            <h5 className="cards__item__text">{props.texttwo}</h5>
+            {
+              /*
+              Commenting out the subject description here as some descriptions are very long and make the page scrolling too long.
+              It will still appear on the individual subject page though.
+
+              <h2 className="cards_item_headingtwo">{props.headingtwo}</h2>
+              <h5 className="cards__item__text">{props.texttwo}</h5>
+              */
+            }
           </div>
         </Link>
       </li>
