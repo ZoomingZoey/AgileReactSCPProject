@@ -1,6 +1,7 @@
-// These articles helped me with designing this API:
+// These articles and resources helped me with designing this API:
 // https://lo-victoria.com/build-a-rest-api-with-nodejs-routes-and-controllers
 // https://www.coreycleary.me/what-is-the-difference-between-controllers-and-services-in-node-rest-apis
+// https://stackoverflow.com/questions/65090440/how-to-solve-mongoose-v5-11-0-model-find-error-operation-products-find-bu
 
 
 // import dependencies
@@ -8,6 +9,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 require("dotenv").config();
+const Subject =  require('./models/Subject');
 
 // import routes
 const scpRoutes = require('./routes/Scps');
@@ -16,10 +18,32 @@ const mediaRoutes = require('./routes/Media');
 // create an instance of express
 const app = express();
 
-// set the server port to either the port set by heroku or 3001
-const port = process.env.PORT || 3001;
-const uri = process.env.MONGODB_URI;
-mongoose.connect(uri, () => console.log('connected'));
+// create a function to start the server which will error out if anything goes wrong during startup
+const start = async () => {
+  // get the mongo URI value
+  const URI = process.env.MONGODB_URI;
+  // check if the mongo URI is set, if not throw an error
+  if (!URI) throw new Error('Database URI must be defined!');
+    
+  // If it is try connect to the MongoDB database using await
+  try {
+    await mongoose.connect(URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      //useCreateIndex: true,
+    });
+    console.log('Connected to MongoDB successfully!')
+  } catch(e) {
+    throw new Error(e.message);
+  }
+
+  // If all the above is successful get the port and tell the server to begin listening on that port
+  // set the server port to either the port set by heroku or to 3001
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => console.log(`The server is now listening on port ${PORT}`));
+};
+
+start();
 
 const subjects = [
   {
@@ -28,7 +52,7 @@ const subjects = [
     object_class: "Thaumiel",
     containment_procedures: null,
     description: "In order to prevent knowledge of SCP-001 from being leaked, several/no false SCP-001 files have been created alongside the true file/files. All files concerning the nature of SCP-001, including the decoy/decoys, are protected by a memetic kill agent designed to immediately cause cardiac arrest in any nonauthorized personnel attempting to access the file. Revealing the true nature/natures of SCP-001 to the general public is cause for execution, except as required under ████-███-██████.",
-    image: null
+    images: null
   },
   {
     item: "SCP-002",
@@ -36,7 +60,7 @@ const subjects = [
     object_class: "Euclid",
     containment_procedures: "SCP-002 is to remain connected to a suitable power supply at all times, to keep it in what appears to be a recharging mode. In case of electrical outage, the emergency barrier between the object and the facility is to be closed and the immediate area evacuated. Once facility power is re-established, alternating bursts of X-ray and ultraviolet light must strobe the area until SCP-002 is re-affixed to the power supply and returned to recharging mode. Containment area is to be kept at negative air pressure at all times.\n\nTeams including a minimum of two (2) members are required within 20 meters of SCP-002 or its containment area. Personnel should maintain physical contact with one another at all times to confirm there is another person present, as perception may be dulled, skewed, or influenced by proximity to the object.\n\nNo personnel below Level 3 are permitted within SCP-002. This requirement may be waived via written authorization from two (2) off-site Level 4 administrators. Command staff issued such a waiver must be escorted by at least five (5) Level 3 Security personnel for the duration of their contact and must temporarily surrender their rank and security clearance. Following contact, command staff will be escorted at least 5 km from SCP-002 to undergo a seventy-two (72)-hour quarantine and psychological evaluation. If deemed fit for return to duty by psych staff, rank and security clearance may be restored when quarantine expires.",
     description: "SCP-002 resembles a tumorous, fleshy growth with a volume of roughly 60 m³ (or 2000 ft³). An iron valve hatch on one side leads to its interior, which appears to be a standard low-rent apartment of modest size. One wall of the room possesses a single window, though no such opening is visible from the exterior. The room contains furniture which, upon close examination, appears to be sculpted bone, woven hair, and various other biological substances produced by the human body. All matter tested thus far show independent or fragmented DNA sequences for each object in the room.\n\nRefer to the Mulhausen Report [cross-ref:document00.023.603] for details related to object\'s discovery.\n\n### Reference:\nTo date, subject has been responsible for the disappearances of seven personnel. It has also in its time at the facility further furnished itself with two lamps, a throw rug, a television, a radio, a beanbag chair, three books in an unknown language, four children\'s toys, and a small potted plant. Tests with a variety of lab animals including higher primates have failed to provoke a response in SCP-002. Cadavers as well fail to produce any effect. Whatever process the subject uses to convert organic matter into furnishings is apparently only facilitated by the introduction of living humans.",
-    image: [
+    images: [
       {
         url: "scp-002.jpg",
         caption: "SCP-002 in its containment area"
@@ -54,7 +78,7 @@ const subjects = [
       "### Addendum 003-03:\nDuring M03-Gloria procedures, SCP-003-1 doubled its mass and began rapid structural growth. Temperature was immediately returned to 100°C. Growth and mass increase of SCP-003-1 continued for 9 minutes and 6 seconds, at which time a sustained radiation spike was produced by SCP-003-2. In response, SCP-003-1 returned to its normal state in 3 minutes and 39 seconds. New growth dissolved into a dusty residue which was collected for analysis. Both SCP-003-1 and SCP-003-2 ceased all detectable activity. SCP-003-2 did not resume activity until connected to external power source. SCP-003-2\'s runes glowed uniformly gray and did not resume normal activity for three (3) hours. SCP-003-2 no longer appears to be able to maintain containment area at a temperature above 35°C without external power supplied by Generators 003-III through IX.\n\n### Addendum 003-04:\nThe procedure detailed in Addendum 003-03 was repeated, and SCP-003-1 again entered a growth state. After 10 minutes and 13 seconds, SCP-003-2 once again produced a sustained radiation spike. SCP-003-1\'s growth stopped for 36 seconds, then resumed at its previous pace.\n\nOn quadrupling its mass, SCP-003-1 formed a coherent outer shell and body. After appearing to scan its environment and partially converting its environment, SCP-003-1 then breached containment, entering the observation gallery where nine members of M03-Gloria were present. On physical contact with team members, SCP-003-1 encompassed them in rapidly-grown appendages and stopped growth for 15 minutes. SCP-003-1 then resumed growth, and rearranged the component parts of the center of its form to the shape of a three-meter-tall female humanoid, with peripheral \"tentacles\" shifting to extrude primarily from SCP-003-1\'s newly formed \"hair\" and spine. SCP-003-1 then produced rudimentary vocalizations in an apparent initial attempt to communicate with researchers. [DATA EXPUNGED]\n\nAn unknown individual approached the compromised containment area in company of a full squad of agents. The individual claimed to be acting on orders of O5-10 and attempted communication with SCP-003-1. [DATA EXPUNGED]\n\nFollowing this incident, Agent Jackson of M03-Gloria successfully restored power to SCP-003-2 and activated backup generators to return the temperature to 100°C. SCP-003-1 returned to its normal state in 21 minutes and 7 seconds, and was successfully re-contained without incident.\n\n" +
       "All nine members of M03-Gloria affected by SCP-003-1 were afterwards found to be physically unharmed, with no residual effects besides psychological trauma. The converted materials of SCP-003\'s former containment area did not dissolve and are now under analysis.\n\n### Addendum 003-05:\nIn light of the previous incident, O5-10 was removed from the O5 Council by joint decision of O5-██, O5-██, and O5-██. M03-Gloria procedures have been indefinitely suspended."
     ),
-    image: [
+    images: [
       {
         url: "scp-003.jpg",
         caption: "A close up of SCP-003\'s circuitry"
@@ -73,7 +97,7 @@ const subjects = [
       "### Space-Time Anomalies\n\nSCP-004 seems to propagate spatiotemporal anomalies. Personnel leaving the facility report losing time. Those who have been in the site for weeks insist that they had only been in the facility for several days, and records of work completed and supplies consumed support their claims. Other temporal anomalies involve SCP-004-2 through -13, especially the reappearance of SCP-004-CAS01 and SCP-004-CAS02 exactly ██ years after using SCP-004-██. ████████████████████ has been assigned to investigate all aspects of these time anomalies. Spatial anomalies include the impossibly large dimensions of the area opened by SCP-004-7. Similarly, the 2003 blackout incident suggests that there exists an alternate plane of existence within the same space that Site-62 occupies.\n\n### Additional Notes\n\nTesting on SCP-004 reveals that ten of the keys open SCP-004-1 on a dimension where the laws of physics and topology are significantly different than those of our home dimension. Test subjects meeting these hostile conditions are torn apart, their body parts deposited in various locations, only three of which have been verified to be on Earth. Material deposited at two of these points appears immediately; material deposited at the third appears exactly ██ years into the future. The other seven locations are currently unknown.\n\nCurrent testing focuses on two avenues of research. The first is finding ways to survive SCP-004’s hostile topologies. The second [DATA EXPUNGED] suggest that SCP-004-2 through -13 may open doors other than SCP-004-1.\n\n### Appendix A: Mental Health Effects of SCP-004-12\n\nAll Class D personnel using SCP-004-12 return in a catatonic state, unable to speak. Some may have enough energy left to try to claw out their eyes. Of the 16 subjects, only 4 have survived. Only one has regained speech, following long-term psychotherapy. He was able to tell the psychiatrist that he saw a massive green creature, so large that much of its body extended beyond his field of view. He reported innate fear and sudden recognition, “as if it were something buried deep in [his] primal fears,” and forced implantation of “incomprehensible” memories. Subject displays acute anterograde and retrograde amnesia.\n\n" +
       "### Appendix B: Additional Information\n\n**Item #:** SCP-004-14\n\n**Date of Discovery:** 09/02/1950\n\n**Origin of Object:** Object was discovered elsewhere in factory area, in the previously undiscovered manager\'s office.\n\n**Description:** Object appears as a large, unvarnished wooden box. The box may be unlocked by the \"safe\" key, SCP-004-7, as well as five of the \"unsafe\" keys (see Document SCP-004-1).\n\nUpon unlocking SCP-004-14 with SCP-004-7, the box opens automatically on hinges. The volume of the space inside is precisely five times greater than the outer dimensions imply. Items placed within while the lid remains open do not affect the weight or any other properties of the box. When the lid is closed and locked, however, all items inside vanish irretrievably. Personnel locked inside the box are also irretrievable, although losing personnel in this fashion appears to affect significantly the dreams experienced by [DATA EXPUNGED]."
     ),
-    image: [
+    images: [
       {
         url: "scp-004.jpg",
         caption: "SCP-004-1"
@@ -90,7 +114,7 @@ const subjects = [
     description: (
       "In appearance, SCP-005 resembles an ornate key, displaying the characteristics of a typical mass produced key used in the 1920s. The key was discovered when a civilian used it to infiltrate a high security facility. SCP-005 seems to have the unique ability to open any and all forms of lock (See Appendix A), be they mechanical or digital, with relative ease. The origin of this ability has yet to be determined.\n\n### Additional Notes:\nSCP-005 may be used as a replacement for lost security passes, but only under the supervision of at least one (1) Level 4 personnel. SCP-005 may not be used for vending machine repairs, opening lockers, or for any personnel\'s spare home key. Removal of the object from the compound will result in immediate termination.\n\n### Appendix A:\nWhile SCP-005 has been shown to be effective in removing almost any form of locking device, further experiments have shown that efforts to disguise the purpose or identity of a lock have proven at least somewhat successful in defeating SCP-005's ability. In approximately 50% of cases where a volunteer was not able to identify a locking device as such, SCP-005 was not successful in deactivating the device. Due to these results, SCP-005 has been tentatively classified as 'sentient' and further tests are being run to determine its cognitive abilities. However, there are no results that show any traits that prevent it from being able to identify any particular locking device, only that the aforementioned device has been heavily concealed and disguised."
     ),
-    image: [
+    images: [
       {
         url: "scp-005.jpg",
         caption: "A close up of SCP-005"
@@ -107,7 +131,7 @@ const subjects = [
     description: (
       "SCP-006 is a very small spring located 60 km west of Astrakhan. Foundation Command was aware of its existence since the 19th century, but were unable to secure it until 1991 due to political reasons. On the spot of the spring, a chemical factory has been constructed as a disguise, with the majority of laborers under Foundation and/or Russian control. The liquid emitted from the spring has been chemically identified as simple mineral water in 1902, but has the unusual property of \"health\".\n\nIngesting the liquid produces the following properties in human beings: the ability to regenerate DNA damaged by sufficient duplication, heightened excitement of cellular duplication, vastly improved abilities in the repair of damaged tissue, and a frightening increase in the effectiveness of the human immune system. Upon testing the liquid on animal subjects, hostile bacteria and viral agents were destroyed immediately. Many reptiles and birds were unaffected, while higher primates experienced the same benefits as humans."
     ),
-    image: [
+    images: [
       {
         url: "scp-006.jpg",
         caption: "SCP-006"
@@ -124,7 +148,7 @@ const subjects = [
     description: (
       "SCP-007 is located within a cavity in the abdomen of Subject. Subject is a Caucasian male, physically approximately 25 years of age (subject claims to be 28) and 176 cm in height. Most of Subject's abdomen (muscles, skin, and organs) is absent, though Subject does not appear to suffer because of this. Instead of normal flesh, a sphere composed of soil and water is present, though it does not actually come into contact with Subject's body at any point. The sphere appears to be, in most respects, a miniature near-duplicate of the Earth, approximately 60 cm in diameter, although continental alignment is not consistent with that of any alignment known in Earth's history. The sphere has its own weather patterns and negligible gravitational pull, in addition to microscopic organisms somewhat resembling those of modern-day Earth inhabiting it. Two intelligent species have been observed, though contact and communication with either has yet to be made. Technology levels of observed species must be checked at least once a week and, as of ██/████, are approximately equal to that of 15th-Century Earth.\n\nSubject claims to be named ███████████████, but no records of such a person can be found. Subject does not require food or water, and while he has been observed consuming both, what happens to such substances after being swallowed is unknown. Subject is intelligent (IQ has been measured at 128) and amiable, and regards the planet in his abdomen as a minor curiosity about his body. Subject seems to experience no stress about his unusual condition. When questioned about planet\'s origins, Subject replied, \"I just woke up one day, and there it was. I don't have any idea how it got there.\" Subject has provided a Social Security number and driver\'s license number and requested that they be checked against known records. When checked, it was discovered that neither had yet been allocated.\n\nDr. ███████ has a weekly chess game with Subject, during which Subject's mental health is evaluated. Dr. ███████ reports that Subject does not seem to mind the restricted living environment, and has yet to attempt to escape or show signs of violence or mental illness, though he has repeatedly requested a computer with an internet connection. It is recommended that this not be provided as it may be used to compromise security."
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-009",
@@ -138,7 +162,7 @@ const subjects = [
       "Testing on D-Class personnel was discontinued as of 4/23/20██.\n\n### Addendum: Circumstances of Retrieval:\nSubject was found in ████, Alaska, on 11/05/19██. The Foundation became involved after reports were obtained from the native ████ Tribe, who came across the mangled bodies of a team of seal hunters which had apparently been ship-wrecked ██ kilometers from the village.\n\nAll victims were found encased in red ice. Cause of death recorded as internal bleeding, though closer examination found [REDACTED]. It is surmised that the low ambient temperatures in the area retarded the freezing process. This prolonged the time to total conversion by ██ hours, and allowed the victims to remain conscious until [DATA EXPUNGED].\n\nOrigin of SCP-009 is currently unknown. Investigation into similar events or materials in the area is ongoing. Evidence at the scene suggests [REDACTED], possibly involving SCP-███.\n\nSee Exploration Log A009-1 for details.\n\n" +
       "### Addendum: 11/09/19██\nAfter initial report and retrieval of specimens, it was confirmed that the arachnoid entity found by MTF-B7 (see attached file) was indeed a previously unknown instance of SCP-3023. Investigation has revealed the instance originated in [REDACTED] as a result of [DATA EXPUNGED].\n\n### Addendum: 12/06/19██\nAfter repeated inquiries, it should be noted that the portion of coastline upon which the initial victims were found was barren rock approximately █ meters from the seashore, and was sufficiently dry and cold to prevent significant contamination of the surrounding area. Had the site been closer to the water, there is little doubt an extinction-level event would have ensued.\n\nConsideration of upgrading SCP-009 to Keter class under review.\n\n### Addendum: 12/16/20██\nSuper-cooling of SCP-009 for the purposes of experimentation is disallowed until further notice. Personnel are advised that liquid nitrogen is only to be used on the subject in controlled amounts, and only until temperatures have reached acceptable levels.\n\nRelated note: Possible application of SCP-009 in cold fusion research pending evaluation.\n\n### Memo from O-5 Command: 1/09/20██\nWe've decided to keep this thing Euclid for now. We understand the concerns raised, but as long as you keep the power on and nobody goes near its containment area, there shouldn't be a problem. That's why we're keeping it in Site ██, after all.\n\nAs for the cold fusion research, we're putting a pin in that for now. Frankly, we don't have it in the budget for another SNAFU like Site ██. The salvage team still hasn't found Dr. █████'s [REDACTED]"
     ),
-    image: [
+    images: [
       {
         url: "scp-009.jpg",
         caption: "SCP-009 prior to recovery"
@@ -156,7 +180,7 @@ const subjects = [
       "SCP-010 consists of a series of six (6) apparently identical cast iron collars with numbered metal tags and one (1) remote control. The control is SCP-010-1. The collars are SCP-010-2 through 010-7. The collars contain intricate electronic components and are powered by small (5 mm diameter, 2 mm thick) 100 V batteries. These batteries are rechargeable.\n\nThe remote is a heavy black box resembling an old style hand-held radio transmitter/receiver with a primitive blue/white cathode ray screen and a series of more than 100 unlabeled buttons, as well as a frequency tuner. Through trial and error, the frequencies of all six (6) currently found collars have been discovered. A label in Russian is stamped into the metal along with a logo consisting of workers building a pyramid. No official Russian corporation or government agency uses this logo or matches the words stamped into the metal.\n\nPlacing the collar around the neck of a person and securing it allows one to control their every movement with the remote. It is also capable of producing an adrenal response and activating or deactivating the sympathetic nervous system. The most abnormal feature of the collars is the effect they have on the body morphology. They allow the user of the remote to reconfigure the shape of the victim to an extent that is apparently only limited by the knowledge of the programming language of the remote.\n\n### Addendum 010-1: History\n\nSCP-010 was discovered in the basement of a lone man in the Midwestern United States after a local disappearance was connected to him. When the police raided the man's house they found SCP-010 as well as several dead bodies. One of the bodies was identified to be the man. The others were several other missing persons. Cause of death seemed to be mass suicide; however, there were signs of significant struggle first.\n\n### Addendum 010-2: Disassemble experiment\n\nTest 1: SCP-010-2 taken apart piecewise, the parts labeled and several photographs taken, then reassembled.\nResult: After reassembly SCP-010-2 continues to function.\n\nTest 2: SCP-010-8 constructed identically to SCP-010-2 but with the closest approximations available to the unreplicable components.\nResult: SCP-010-8 fails to function.\n\nTest 3: Unreplicable components from SCP-010-2 placed into proper locations on SCP-010-8.\nResult: SCP-010-2 ceases functioning with removal of components. SCP-010-8 begins functioning.\n\n" +
       "Test 4: Components returned to SCP-010-2. Replicable components in SCP-010-2 replaced randomly with replicas.\nResult: SCP-010-2 begins functioning with return of components. Changing replicable components for replicas does not significantly reduce functionality. Replacement of a damaged transistor decreased time from transmission to effect of SCP-010-2 response to commands entered in the remote by 12%.\n\n### Addendum 010-3:\n\n_SCP-010 has been demonstrated to work more effectively in creating unskilled labor than for any other task. The logo is apt. ~ Dr. █████_"
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-011",
@@ -168,7 +192,7 @@ const subjects = [
     description: (
       "SCP-011 is a Civil War memorial statue located in Woodstock, Vermont. The statue is the image of a young male soldier holding a musket at his side, and is carved out of granite quarried within the area. Occasionally, SCP-011 has been observed lifting its musket to the sky to fire at birds which attempt to land or defecate on it. Reports detail that its movements produce soft grinding sounds but do not cause it any structural failure. Oddly, the gunfire is very similar to that of a standard firearm, despite observations that the item only loads granite bullets and granite powder into the musket (which is also unharmed by the firing). In spite of its efforts, some fecal matter does manage to strike SCP-011, and it has reportedly become distressed when it has had a large amount of feces on it, on some rare occasions even firing at humans.\n\n### Addendum:\nThose assigned to maintain SCP-011 are to see document #011-1 for instructions.\n\n### Document #011-1: Maintenance Brief\n\n[Document archived 2004 - accessible to personnel with security clearance 2/011 or higher]\n\n### Additional Information:\nSCP-011's seeming sentience has increased since the first report of activity in 1995. As of 2004, the item's containment procedures have been dropped but it remains under constant observation. Recorded below are landmark events in its activity."
     ),
-    image: [
+    images: [
       {
         url: "scp-011.jpg",
         caption: "SCP-011"
@@ -185,7 +209,7 @@ const subjects = [
     description: (
       "SCP-013 is the collective designation of 242 cigarettes which display similar anomalies. The most common external detail between instances is the presence of the words “Blue Lady” hand-written on each cigarette in blue ink.\n\nSubjects who consume the contents of SCP-013 through inhalation will begin to perceive themselves as a specific unidentified woman. Subjects have described the woman to be aged between 25 and 35 years old, standing approximately 1.6 metres tall with an estimated weight of between 50 and 55 kg. Additional recurring details include cropped dark hair, blue eyes, and bright blue lipstick.\n\nImmediately after consuming an instance of SCP-013, subjects will gradually begin to perceive reflections of themselves as having the features of the woman, and will gradually perceive their bodies changing to reflect her appearance over the course of the following weeks. All changes are entirely mental; the subject’s body does not change outwardly, only their perception of themselves. These alterations are permanent, and cannot be reversed.\n\nSCP-013 was discovered after the suicide of an Ian Miles, packed in a large cardboard crate in his apartment. A cursory search of the apartment uncovered several hundred sketches of a figure strongly resembling the one perceived while under 013's effect. Miles' body had been found sitting at a desk, dead of a massive overdose and draped over a handwritten note, transcribed below.\n\nDuring the investigation of Miles' apartment, one civilian investigator became affected by 013's effect. An embedded Agent soon contacted the nearest Site; the subject, the artifact, and related evidence were extracted and contained.\n\nCurrently, two hundred seventeen instances of SCP-013 cigarettes are contained at Bio-Site 66; twenty-five SCP-013 cigarettes are contained at Research Sector-09, pending future research into similar anomalous effects."
     ),
-    image: [
+    images: [
       {
         url: "scp-013.jpg",
         caption: "SCP-013"
@@ -202,7 +226,7 @@ const subjects = [
     description: (
       "SCP-014 is a Caucasian male, appearing to be approximately 30 years of age, with black hair, brown eyes, and a somewhat round face. Records indicate his name to be Robert Chetford, confined in 1915 to the Norwich Asylum in Connecticut for delusional insanity, claiming that he had been cursed to live forever, and was slowly turning into concrete in consequence. The asylum closed in 1937, and the patients were transferred to various other facilities. SCP-014 came to Foundation attention in 19██, from rumours of a patient who seemed to be entirely immobile and showed no signs of aging. Further investigation determined that acquisition was warranted.\n\nSCP-014 is to all outward appearances a normal man, but he does not appear to age, and shows no signs of possessing a metabolism. He does not eat, drink, perspire, or in any other way demonstrate life functions. He breathes only to speak, and apart from his eyes and vocal apparatus, is to all appearances utterly immobile. He has never shown any evidence of pressure ulcers despite his position not having varied for several decades; neither do his muscles appear atrophied. He can converse normally, but shows little knowledge of or interest in events since his confinement.\n\n### Addendum:\n_Note: Frankly, were I to interview this man without knowing his history, I'd think he was a perfectly sane and well-adjusted individual who happens to be quadriplegic. As it is, I have to conclude that he's the ultimate proof of the idea that the mind rules the body. He thinks he's concrete, and will live forever, and so he's as close to both as he can be. Somehow._\n_-Dr. █████_"
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-015",
@@ -214,7 +238,7 @@ const subjects = [
     description: (
       "SCP-015 is a mass of pipes, vents, boilers and other various plumbing apparatus completely filling a warehouse in ███████. The pipes appear to grow when not under observation, attempting to connect to nearby structures via sewer systems and underground plumbing. SCP-015 contains, at current estimate, over 190 kilometers (120 miles) of pipes, ranging in diameter from 2.5 cm to over 1 m. Some pipes appear new, while others are rusted and leaking. Pipes have been reported as being made of bone, wood, steel, pressed ash, human flesh, glass, and granite. No pipes composed of lead, PVC plastic, copper, or any other traditional material for the production of pipes have been found.\n\nSCP-015 reacts to tools and aggression. Any personnel acting violently, carrying tools, or attempting to damage or repair SCP-015 in any way, will trigger a reaction. Any pipes near the subject will burst, spraying on the subject for several seconds before the flow suddenly stops. Pipes have been reported containing oil, mercury, rats, a species of insect not yet identified, ground glass, sea water, entrails, and molten iron. Pipes will continue to burst around the subject until death or retreat.\n\nSCP-015 was cut back to its current structure after attaching to 11 other structures in the area. Currently, 11 personnel have been killed, and 20 more are still missing. Reports have been made of banging and screaming coming from within SCP-015."
     ),
-    image: [
+    images: [
       {
         url: "scp-015.jpg",
         caption: "Interior View of SCP-015"
@@ -234,7 +258,7 @@ const subjects = [
       "### Addendum: Experiment Log of SCP-016's Transformative Properties\n- Subject D-016-1: D-Class personnel infected by SCP-016. Upon first showing symptoms, subject's quarters were slowly flooded with water over a 24 hour period. SCP-016 mutated into teratomorphic state, transforming subject's lungs into gills. Subject survived for two (2) more weeks as SCP-016 transformed its limbs into fins, caused its eyes to atrophy, and enhanced its sense of hearing into a cetacean-type echolocation ability. Subject was terminated by draining all water from its quarters, causing it to asphyxiate: body was subsequently cremated without autopsy.\n\n- Subject D-016-2: D-Class personnel infected by SCP-016. Upon first showing symptoms, subject's quarters were slowly flooded with water over a 24 hour period. SCP-016 mutated into teratomorphic state, causing subject to undergo rapid muscular growth and increased bone growth on knuckles. Subject then attempted to escape from confinement by punching through the reinforced steel door. Subject was not successful and died by drowning.\n\n_Note: Same situation, two different responses. Interesting. - Dr. ████████_\n- Subject D-016-3: D-Class personnel infected by SCP-016. Subject was previously a chemical engineer who poisoned his wife upon discovering her adultery. Upon first showing symptoms, subject's quarters were slowly flooded with water over a 24 hour period. SCP-016 mutated into teratomorphic state, causing subject to grow an unusual organ on his chest, consisting of a chamber and two (2) separate tubes. Organ continued to take in water and swell in size, until Foundation personnel, realizing what SCP-016 may be attempting, terminated the subject by gunshot. Organ was found to contain several gas sacs filled with acetylene gas and oxygen.\n\n- Subject D-016-4: D-Class personnel infected by SCP-016. Subject was told to concentrate on forming wings. No stress was applied. SCP-016 did not mutate into teratomorphic state. Subject died of exsanguination during Phase 3.\n\n" +
       "- Subject D-016-5: D-Class personnel infected by SCP-016. Subject was told to concentrate on forming wings and placed in an acrylic box suspended 305 m (1000 ft) above a mine shaft. A timer was placed outside the box which subject was told indicated the time to release. SCP-016 mutated into teratomorphic state, causing subject to grow a tentacle-like organ on his left wrist similar to a spider's spinnerets: subject extended said organ through one of the box's air holes and extruded a strong, silk-like substance, which it then used to secure the box to the cable. Subject was terminated when the countdown reached zero and the bomb detonated.\n\n### Footnotes\n1. Due to their similarities as fatal contagions that stimulate the production of excess organs, a possible link to SCP-1801 is under investigation."
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-017",
@@ -246,7 +270,7 @@ const subjects = [
     description: (
       "SCP-017 is a humanoid figure approximately 80 centimeters in height, anatomically similar to a small child, but with no discernible identifying features. SCP-017 seems to be composed of a shadowy, smoke-like shroud. No attempt to find any object beneath the shroud has been successful, but the possibility has not been ruled out.\n\nSCP-017's reaction to shadows cast upon it is immediate and swift. SCP-017 leaps at the object casting the shadow and completely encloses it in its shroud, whereupon it returns to its normal size, leaving no trace of the object behind.\n\n### Additional Notes:\nPersonnel with BETA clearance or higher should see also document #017-1."
     ),
-    image: [
+    images: [
       {
         url: "scp-017.jpg",
         caption: "File footage of SCP-017"
@@ -266,7 +290,7 @@ const subjects = [
       "### Document #018-06: Letter to Dr. █████████\n\n_Dr. █████████,_\n\n_Upon assignment, Agent ██████ was issued your modified SCP-A5 armor in retrieving SCP-███, and the results are mixed. Agent ██████ was able to place the ██████████ collar onto SCP-███, chase it through the Amazon, and restrain it by dismemberment. However, due to a malfunction of your 'little mechanical device', he was launched almost a mile into the air and suffered two broken legs, seven broken ribs, a missing arm, and a skull fracture upon hitting the water of Lake ███████████ on the way back down. You will fix that before I authorize your armor for common use._" +
       "### Document #018-11: Message to O5-█\n\n█████████, don't worry, it's fixed. But, I have some more ideas. If I can be granted the use of some water from SCP-006, SCP-███, and possibly SCP-███, I can deliver you a set of SCP-A5 armor and an agent that can capture any, if not all, rogue or unattained SCPs. All I'm waiting on is your approval."
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-019",
@@ -280,7 +304,7 @@ const subjects = [
       "When kept at zero (0) degrees Celsius and totally at rest, entities will emerge from SCP-019 at a rate of approximately one (1) entity per hour. The following traits are known to affect SCP-019-2's manifestation rate:\n- Movement of SCP-019\n- Threat to SCP-019\n- Extreme temperature highs and lows\n- Sudden shift in surrounding environment\n- Introduction of objects or organisms to the inside of SCP-019 (known to cause a “flood” reaction)\n\nTraits that may or may not influence SCP-019-2's manifestation rate:\n- Presence of human life near SCP-019\n- Current weather patterns\n- Specific individuals near SCP-019 (some individuals seem to affect SCP-019-2\'s emergence rate more drastically than others)\n\nIn addition, tipping or tilting SCP-019 will create a reaction as though it was previously “filled” with SCP-019-2 specimens, although viewers looking into SCP-019 from above will merely observe a dark hole. Due to the production rates of SCP-019-2 when the object is disturbed, measurement of the internal cavity is difficult, but it is suspected to be inconsistent with outside measurements.\n\n" +
       "### Addendum: Document SCP-019-2-A\nSCP-019-2 notes, as maintained by Doctor Light and Doctor Vaux\n\n#### ██/██/████\nSCP-019-2 specimen was removed from containment chamber and kept in reinforced pen, provided with water and live chickens as food. Specimen made quiet, continuous, garbled vocalizations, determined to be phonetically similar to Ancient Hellenic languages. Although the reason for this is unknown, specimens are still thought to be no more intelligent than animals.\n\nThe specimen lived for less than 48 hours, and a dissection revealed anatomy consistent on a cellular level with normal biology, but with an extremely unstable musculoskeletal structure. Other notable anomalies included an unstable respiratory system, nearly nonexistent digestive tract, and virtually no other internal organs. All other captured specimens have followed similar patterns of behavior and demise.\n\n**Note:** It appears that SCP-019-2 specimens were not intended to live for meaningful amounts of time outside of SCP-019. -Dr. Vaux\n\n#### ██/██/████\nContainment unit was slightly damaged following prolonged exposure to SCP-019-2 specimen, missed by the monitoring team because of partial transparency. This has not been noted in SCP-019-2 before. Monitoring teams will continue to report further anomalies.\n\n#### ██/██/████\nMonitoring teams report some specimens of SCP-019-2 now appear to be significantly more resistant to incineration than others. It is hypothesized that this is a defense mechanism on the part of SCP-019.\n\n#### ██/██/████\nMost specimens of SCP-019-2 are now all but entirely resistant to the effects of the incinerator. Replacement of incinerator with an acid bath is being considered. “Evolution” of SCP-019-2 is being studied, and may be evidence of sentience in SCP-019."
     ),
-    image: [
+    images: [
       {
         url: "scp-019.jpg",
         caption: "SCP-019"
@@ -301,7 +325,7 @@ const subjects = [
     description: (
       "SCP-020 is a fast-spreading fungal organism that is capable of affecting the senses and behavior of living creatures, including humans. Samples of SCP-020 exhibit an unknown effect that renders them effectively invisible to direct observation, even when under a microscope. SCP-020 is only visible to humans when viewed through photographic or video surveillance.\n\nOnce SCP-020 forms a colony, usually within a human residence, it will produce spores that affect the behavior of humans around it. Affected subjects will increase the heat and humidity within their homes to create an environment more suitable to the growth of SCP-020. Affected subjects also become more sociable in many cases, and often invite acquaintances to their homes to further spread the organism. As the spores and mold colonies are invisible to affected subjects, the mold may sometimes grow directly on living subjects.\n\nAs the spores and colonies within a home approach critical concentration, the health of affected human subjects will rapidly deteriorate, resulting in death. Further spread of the mold may occur as the bodies of any deceased subjects are encountered by emergency responders and health care agents, as well as transportation of the bodies to local morgues.\n\nSCP-020 was first encountered in [REDACTED], where an undercover SCP agent noted dramatic personality changes in personnel working at the local hospital. Upon investigation by a containment team, it was discovered that almost ███ civilians had been infected, as well as a majority of the town. The civilian population was terminated, and the town incinerated under cover of a local flash forest fire.\n\nTo date, over 12 outbreaks of SCP-020 have been reported. Investigations are currently underway to determine the source of these outbreaks and possible preventative measures.\n\n### Addendum 020-01:\nExcerpts from the audio/video mission recorders of Mobile Task Force Eta-10 (\"See No Evil\") during the initial containment of SCP-020 on [REDACTED]."
     ),
-    image: [
+    images: [
       {
         url: "scp-020.jpg",
         caption: "SCP-020 growths in a civilian residence."
@@ -319,7 +343,7 @@ const subjects = [
       "SCP-029 appears to be a pubescent female of Asiatic-Indian descent. She appears to suffer from alopecia universalis. Over 80% of her pigmentation is a true black, while the rest of her skin has a complete lack of melanin, to the point of albinism. Her eyes are also a dark black in color.\n\nSCP-029 has severe homicidal tendencies and has displayed a remarkable ability to use any item as a weapon. However, she has a severe compulsion against shedding blood, preferring instead to strangle her victims. SCP-029 has demonstrated dexterity and physical reactions four (4) times as fast as the average human. SCP-029 has also displayed extensive resistance to damage of all forms. Both of these extra human abilities are greatly hampered in the presences of bright or direct light, natural or artificial. In addition, any males who come within the presence of SCP-029, an area defined by her current perception, find themselves pliant to her will. Such males become willing to kill or even die for SCP-029.\n\nSCP-029 refers to herself as ████████, which roughly translates to 'Daughter of Darkness,' 'Daughter of Shadows,' or 'Daughter of Night.' Interviews with SCP-029 have proven difficult to conduct, due to SCP-029's constant attempts to kill or convert all who speak with her. Over her years of captivity, the black patches on her skin have increased in size.\n\nSCP-029 was first brought to the Foundation's attention by an Agent working in rural India. An attempt on his life led him to a small cult of men who claimed to be 'Thuggees,' in service to the Daughter. Several weeks of investigation proved that they believed the world to be in the last years of the 'Kali Yuga,' and that by sacrificing one million lives to the Daughter of Darkness, they could raise their Goddess and end the world. They also believed that only sacrifices performed through strangulation added to this tally. Events led the agent to their mountain fortress, where he discovered SCP-029. After the loss of said Agent, [DATA EXPUNGED], which ended in our acquisition of SCP-029.\n\n" +
       "### Addendum:\nSeven (7) years after capture, SCP-029 began showing anomalous growth in her black pigmentation. When questioned about it, she claimed her 'followers were on the move once more.' Investigation led us to a concentration of so-called 'Thuggees' that had escaped our initial foray. After discovering that all her followers were there for one of their holy days, a tactical air strike was called in. When the first bomb dropped, SCP-029 awoke from slumber, screaming at the top of her lungs. SCP-029 continued to scream for the next four (4) hours, ranting and raving that we were 'killing her people.' Since said event, the growth of black pigmentation has stopped completely. Also since said event, SCP-029 has redoubled her efforts to escape. SCP-2820 has been proposed as a possible method of neutralization should the situation worsen."
     ),
-    image: null
+    images: null
   },
   {
     item: "SCP-052",
@@ -337,7 +361,7 @@ const subjects = [
       "#### Passenger 052-6:\n█████ ████████ claims to be a Level 4 Supervisor from the “SCP Federation” who entered the train in December 2124. Subject had been administered a Class A-Prime amnestic prior to boarding, in a successful attempt to avoid the fate of Passengers 052-4 and 052-5. Recovered Feb. 6, 2010. As he will never be released from Foundation custody, O5 Command has approved sharing otherwise classified information about other artifacts in our possession, in hopes of gaining new methods of containment, and becoming aware of future security breaches. Agent ████████ has been cooperative, and claims:\n" +
       "- That it is good we do not know how to open SCP-699. Subject turned visibly pale and refused to discuss this item further.\n\n- To be a survivor of the “Great Zombie Plague of 2092” caused by an SCP-008 containment breach.\n\n- That SCP-███ can be killed by [DATA EXPUNGED] with a [DATA EXPUNGED] and SCP-███. [Permission to try this has been denied by O5-█.]\n\n- That he worked for Dr. Jack Bright."
     ),
-    image: [
+    images: [
       {
         url: "scp-052.png",
         caption: "SCP-052"
@@ -345,6 +369,21 @@ const subjects = [
     ]
   }
 ];
+
+const insertSubjects = async () => {
+  for (const scp of subjects) {
+    await Subject.create({
+      item: scp.item,
+      name: scp.name,
+      object_class: scp.object_class,
+      containment_procedures: scp.containment_procedures,
+      description: scp.description,
+      images: scp.images
+    });
+  }
+}
+
+// insertSubjects();
 
 // tell express to use the imported routes
 app.use('/api', scpRoutes);
@@ -355,6 +394,3 @@ app.get('*', (req, res) => {
   //res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
   res.sendFile(path.resolve(__dirname, './', 'index.html'));
 });
-
-// tell the server to begin listening on the selected port
-app.listen(port, () => console.log(`The server is listening on port ${port}`));
