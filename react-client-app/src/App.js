@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./Components/Navbar";
 import Home from './Components/Pages/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SCPAll from "./Components/Pages/SCPAll";
 import SCPSafe from "./Components/Pages/SCPSafe";
 import SCPEuclid from "./Components/Pages/SCPEuclid";
 import SCPKeter from "./Components/Pages/SCPKeter";
@@ -16,11 +17,11 @@ function App() {
       <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/SCP_Safe" element={<SCPSafe />} />
-          <Route path="/SCP_Euclid" element={<SCPEuclid />} />
-          <Route path="/SCP_Keter" element={<SCPKeter />} />
-          <Route path="/SCP_Thaumiel" element={<SCPThaumiel />} />
-
+          <Route path="/Subjects" element={<SCPAll />} />
+          <Route path="/Subjects/Safe" element={<SCPSafe />} />
+          <Route path="/Subjects/Euclid" element={<SCPEuclid />} />
+          <Route path="/Subjects/Keter" element={<SCPKeter />} />
+          <Route path="/Subjects/Thaumiel" element={<SCPThaumiel />} />
         </Routes>
       </Router>
     </>
