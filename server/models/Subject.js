@@ -11,7 +11,7 @@ const imageSchema = mongoose.Schema({
   },
 });
 
-const scpSchema = mongoose.Schema({
+const subjectSchema = mongoose.Schema({
   item: {
     type: String,
     required: true,
@@ -36,7 +36,7 @@ const scpSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  image: [imageSchema]
+  images: [imageSchema]
 });
 
-module.exports = mongoose.model('Scp', scpSchema);
+module.exports = mongoose.model('Subjects', subjectSchema);

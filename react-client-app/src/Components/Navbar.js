@@ -40,39 +40,44 @@ function Navbar() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link
-              to="/SCP_Safe"
-              className="nav-links"
-              onClick={closeMobileMenu}
-            >
-              SCP Safe
+            <Link to="/Subjects" className="nav-links" onClick={closeMobileMenu}>
+              All Scps
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Euclid"
+              to="/Subjects/Safe"
               className="nav-links"
               onClick={closeMobileMenu}
             >
-              SCP Euclid
+              Safe Scps
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Keter"
+              to="/Subjects/Euclid"
               className="nav-links"
               onClick={closeMobileMenu}
             >
-              SCP Keter
+              Euclid Scps
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              to="/SCP_Thaumiel"
+              to="/Subjects/Keter"
               className="nav-links"
               onClick={closeMobileMenu}
             >
-              SCP Thaumiel
+              Keter Scps
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link
+              to="/Subjects/Thaumiel"
+              className="nav-links"
+              onClick={closeMobileMenu}
+            >
+              Thaumiel Scps
             </Link>
           </li>
           </ul>

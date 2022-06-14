@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ListSubjectCards from '../ListSubjectCards';
 
-function SCPEuclid () {
+const SCPAll = () => {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
@@ -12,11 +12,11 @@ function SCPEuclid () {
 
     return (
         <div>
-          <h1 style={{marginTop: '3.5rem'}}>All Euclid Subjects</h1>
+          <h1 style={{marginTop: '3.5rem'}}>All Subjects</h1>
           <h3 style={{marginTop: '1rem', textAlign: 'center'}}>Click on a subject entry to view more information</h3>
-          <ListSubjectCards subjects={subjects.filter(v => v.object_class === 'Euclid')} /> 
+          <ListSubjectCards subjects={subjects} />
         </div>
     );
 }
-
-export default SCPEuclid;
+ 
+export default SCPAll;
