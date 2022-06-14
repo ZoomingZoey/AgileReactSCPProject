@@ -14,7 +14,6 @@ function CardCoverSCP(props) {
               className="cards__item__img"
               alt="SCP"
               src={props.src}
-              url={props.url}
             />
           </figure>
           <div className="cards__item__info">
