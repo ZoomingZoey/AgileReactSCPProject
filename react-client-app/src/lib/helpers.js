@@ -13,3 +13,7 @@ export function getRandomSubjectImageURL(subjects, objectClass) {
   // return the image
   return image.url;
 }
+
+export function getMediaPath(path) {
+  return `/api/media/images/${path}`;
+}

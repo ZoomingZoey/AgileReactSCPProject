@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import CardCover from "./CardCover";
 import "./Cards.css";
-import { getRandomSubjectImageURL } from "../helpers";
+import { getRandomSubjectImageURL, getMediaPath } from "../lib/helpers";
 
 function Cards() {
   const [subjects, setSubjects] = useState([]);
@@ -28,25 +28,25 @@ function Cards() {
             <div className="cards_wrapper">
               <ul className="cards__items">
               <CardCover
-                  src={`/api/media/images/${imageSafeURL}`}
+                  src={getMediaPath(imageSafeURL)}
                   text='100% Safe, SCP Approved.'
                   label='Safe'
                   path='/SCP_Safe'
                 />
                 <CardCover
-                  src={`/api/media/images/${imageEuclidURL}`}
+                  src={getMediaPath(imageEuclidURL)}
                   text='Euclid is assigned to SCPs whose behavior cannot be unerringly predicted.'
                   label='Euclid'
                   path='/SCP_Euclid'
                 />
                 <CardCover
-                  src={`/api/media/images/${imageKeterURL}`}
+                  src={getMediaPath(imageKeterURL)}
                   text='Keter scps are very difficult to contain or have not yet been contained.'
                   label='Keter'
                   path='/SCP_Keter'
                 />
                 <CardCover
-                  src={`/api/media/images/${imageThaumielURL}`}
+                  src={getMediaPath(imageThaumielURL)}
                   text='Thaumiel is assigned to scps that are used to contain other scp subjects.'
                   label='Thaumiel'
                   path='/SCP_Thaumiel'

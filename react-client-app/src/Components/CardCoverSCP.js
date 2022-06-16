@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-
+import { getMediaPath } from '../lib/helpers';
 
 function CardCoverSCP(props) {
 
@@ -13,7 +12,7 @@ function CardCoverSCP(props) {
             <img
               className="cards__item__img"
               alt="SCP"
-              src={props.src}
+              src={getMediaPath(props.src)}
             />
           </figure>
           <div className="cards__item__info">
