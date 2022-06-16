@@ -1,5 +1,8 @@
 .footer-container {
     background-color: #242424;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
   }
   
   .footer-subscription {
@@ -97,9 +100,11 @@
   
   .social-media-wrap {
     display: flex;
+    justify-content: center;
     align-items: center;
     width: 90%;
     max-width: 1000px;
+    flex-wrap: wrap;
   }
   
   .social-icons {
@@ -112,7 +117,9 @@
   .social-logo {
     color: #fff;
     justify-self: start;
-    margin-left: 100px;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -123,5 +130,11 @@
     margin-right: 10px;
     font-size: medium;
     align-items: center;
+    display: block;
   }
-  
+
+  .developer-section {
+    background-color: black;
+    padding: 1rem 0;
+    text-align: center;
+  }

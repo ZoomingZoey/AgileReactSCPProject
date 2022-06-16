@@ -31,25 +31,25 @@ function Cards() {
                   src={getMediaPath(imageSafeURL)}
                   text='100% Safe, SCP Approved.'
                   label='Safe'
-                  path='/SCP_Safe'
+                  path='/Subjects/Safe'
                 />
                 <CardCover
                   src={getMediaPath(imageEuclidURL)}
                   text='Euclid is assigned to SCPs whose behavior cannot be unerringly predicted.'
                   label='Euclid'
-                  path='/SCP_Euclid'
+                  path='/Subjects/Euclid'
                 />
                 <CardCover
                   src={getMediaPath(imageKeterURL)}
                   text='Keter scps are very difficult to contain or have not yet been contained.'
                   label='Keter'
-                  path='/SCP_Keter'
+                  path='/Subjects/Keter'
                 />
                 <CardCover
                   src={getMediaPath(imageThaumielURL)}
                   text='Thaumiel is assigned to scps that are used to contain other scp subjects.'
                   label='Thaumiel'
-                  path='/SCP_Thaumiel'
+                  path='/Subjects/Thaumiel'
                 />
               </ul>
             </div>
