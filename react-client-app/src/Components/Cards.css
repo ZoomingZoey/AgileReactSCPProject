@@ -12,7 +12,7 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    max-width: 2120px;
+    max-width: 3120px;
     width: 90%;
     margin: 0 auto;
   }
@@ -23,7 +23,8 @@
   }
   
   .cards__items {
-    margin-bottom: 24px;
+    padding-top: 60px;
+    margin: -84px;
   }
   
   .cards__item {
