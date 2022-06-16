@@ -28,7 +28,7 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-          <img src="/images/SCP_Foundation_Logo.png" alt="" width="320" height="70"/>
+          <img src="/image/SCP_Foundation_Logo.png" alt="" width="320" height="70"/>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
