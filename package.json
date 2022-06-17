@@ -4,7 +4,8 @@
   "description": "A SCP themed web app built using React.js, MongoDB and Express.js using the agile scrum software development methodology.",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "16.13.1"
