@@ -1,5 +1,7 @@
 
 export function getRandomSubjectImageURL(subjects, objectClass) {
+  if (subjects === 'undefined' || subjects === null) return;
+  
   // filter the subjects array for subjects that have images
   const filteredSubjects = subjects.filter(v => v.object_class === objectClass && v.images !== null);
   if (filteredSubjects.length <= 0) return null;

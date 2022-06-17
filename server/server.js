@@ -2,6 +2,7 @@
 // https://lo-victoria.com/build-a-rest-api-with-nodejs-routes-and-controllers
 // https://www.coreycleary.me/what-is-the-difference-between-controllers-and-services-in-node-rest-apis
 // https://stackoverflow.com/questions/65090440/how-to-solve-mongoose-v5-11-0-model-find-error-operation-products-find-bu
+// https://www.querythreads.com/create-react-app-build-uncaught-syntax-error-unexpected-token/
 
 
 // import dependencies
@@ -390,6 +391,8 @@ app.use('/api', scpRoutes);
 app.use('/api', mediaRoutes);
 
 // any unhandled routes will return the react application
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
-});
+const root = require('path').join(__dirname, '../react-client-app', 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+})
