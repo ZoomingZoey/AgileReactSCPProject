@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "./Button";
 import './Navbar.css';
 
 function Navbar() {
@@ -18,7 +19,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    showButton() 
+    showButton()
   }, []);
 
   window.addEventListener('resize', showButton);
@@ -28,7 +29,7 @@ function Navbar() {
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
-          <img src="/images/SCP_Foundation_Logo.png" alt="" width="320" height="70"/>
+          <img src="/image/SCP_Foundation_Logo.png" alt="" width="320" height="70"/>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />
@@ -79,9 +80,12 @@ function Navbar() {
             >
               Thaumiel Scps
             </Link>
+          
           </li>
+      
+
           </ul>
-       
+          
         </div>
       </nav>
     </>
@@ -89,3 +93,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

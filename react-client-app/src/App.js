@@ -4,6 +4,7 @@ import Navbar from "./Components/Navbar";
 import Home from './Components/Pages/Home';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SCPAll from "./Components/Pages/SCPAll";
+import Subject from "./Components/Pages/Subject";
 import SCPSafe from "./Components/Pages/SCPSafe";
 import SCPEuclid from "./Components/Pages/SCPEuclid";
 import SCPKeter from "./Components/Pages/SCPKeter";
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Subjects" element={<SCPAll />} />
+          <Route path="/Subjects/:item" element={<Subject />} />
           <Route path="/Subjects/Safe" element={<SCPSafe />} />
           <Route path="/Subjects/Euclid" element={<SCPEuclid />} />
           <Route path="/Subjects/Keter" element={<SCPKeter />} />

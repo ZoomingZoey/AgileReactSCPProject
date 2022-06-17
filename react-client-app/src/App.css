@@ -51,3 +51,16 @@
   color: #fff;
   font-size: 100px;
 }
+
+.image-fluid {
+  height: 100%;
+  max-width: 100%;
+}
+
+.subject-image {
+  margin-bottom: 1rem;
+}
+
+.subject-image:last-child {
+  margin-bottom: 0;
+}
