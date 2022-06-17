@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ListSubjectCards from '../ListSubjectCards';
+import Footer from '../Footer';
 
 function SCPSafe () {
   const [subjects, setSubjects] = useState([]);
@@ -15,6 +16,7 @@ function SCPSafe () {
           <h1 style={{marginTop: '3.5rem'}}>All Safe Subjects</h1>
           <h3 style={{marginTop: '1rem', textAlign: 'center'}}>Click on a subject entry to view more information</h3>
           <ListSubjectCards subjects={subjects.filter(v => v.object_class === 'Safe')} />
+          <Footer/>
         </div>
     );
 }

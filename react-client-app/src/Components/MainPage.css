@@ -9,7 +9,7 @@ video {
 .hero-container {
     /* background: url('/images/SCP_Wallpaper.jpg') center center/cover
     no-repeat; */
-    background: url('../../public/images/SCP_Wallpaper1.jpg') center center/cover no-repeat;
+    background: url('../../public/image/SCP_Wallpaper1.jpg') center center/cover no-repeat;
     height: 50vh;
     width: 100%;
     display: flex;

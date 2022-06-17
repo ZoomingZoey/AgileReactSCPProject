@@ -13,3 +13,12 @@ export function getRandomSubjectImageURL(subjects, objectClass) {
   // return the image
   return image.url;
 }
+
+export function getMediaPath(path) {
+  return `/api/media/images/${path}`;
+}
+
+export function removeItemStringPrefix(item) {
+  if (typeof item !== 'string') return;
+  return item.replace('SCP-', '');
+}
