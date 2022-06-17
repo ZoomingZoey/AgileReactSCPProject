@@ -8,7 +8,7 @@
     "build": "cd react-client-app && npm install && npm run build"
   },
   "engines": {
-    "node": "16.13.1"
+    "node": "14.19.1"
   },
   "repository": {
     "type": "git",
