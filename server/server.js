@@ -391,6 +391,5 @@ app.use('/api', mediaRoutes);
 
 // any unhandled routes will return the react application
 app.get('*', (req, res) => {
-  //res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
-  res.sendFile(path.resolve(__dirname, './', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../react-client-app/build', 'index.html'));
 });
