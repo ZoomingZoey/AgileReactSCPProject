@@ -10,7 +10,6 @@ import SCPEuclid from "./Components/Pages/SCPEuclid";
 import SCPKeter from "./Components/Pages/SCPKeter";
 import SCPThaumiel from "./Components/Pages/SCPThaumiel";
 
-
 function App() {
   return (
     <>

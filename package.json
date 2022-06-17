@@ -8,18 +8,11 @@
     "build": "cd react-client-app && npm install && npm run build"
   },
   "engines": {
-    "node": "14.19.1"
+    "node": "16.14.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zachcoley/AgileReactSCPProject.git"
-  },
-  "keywords": [],
+  "github": "https://github.com/zachcoley/AgileReactSCPProject",
   "author": "Zach Coley, Alice Watson-Howcroft, Kim Parker",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zachcoley/AgileReactSCPProject/issues"
-  },
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
