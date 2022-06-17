@@ -10,9 +10,18 @@ const Subject = () => {
   const { item } = useParams();
 
   useEffect(() => {
-    fetch(`/api/scps/${removeItemStringPrefix(item)}`)
-      .then(res => res.json())
-      .then(data => setSubject(data));
+    async function fetchData() {
+      try {
+        const res = await fetch(`/api/scps/${removeItemStringPrefix(item)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setSubject(data);
+        }
+      } catch(e) {
+        console.log('error getting data')
+      }
+    }
+    fetchData();
   }, []);
 
   const md = new MarkdownIt();

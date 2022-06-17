@@ -47,7 +47,6 @@ const getOneSubject = async (req, res, next) => {
   // try to get the requested subject and respond with it
   try {
     const subject = await findOneSubject(item);
-    console.log(subject)
 
     // if the subject is null or undefined send a 404 not found error
     if (subject === null || subject === 'undefined') {

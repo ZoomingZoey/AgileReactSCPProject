@@ -7,9 +7,18 @@ function Cards() {
   const [subjects, setSubjects] = useState([]);
 
   useEffect(() => {
-    fetch('/api/scps')
-      .then(res => res.json())
-      .then(data => setSubjects(data));
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/scps');
+        if (res.ok) {
+          const data = await res.json();
+          setSubjects(data);
+        }
+      } catch(e) {
+        console.log('error getting data')
+      }
+    }
+    fetchData();
   }, []);
 
   const imageSafeURL = getRandomSubjectImageURL(subjects, 'Safe');
